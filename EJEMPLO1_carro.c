@@ -50,7 +50,7 @@ int getCM() {
 int main(void) {
         setup();
  
-        if(distancia > 15 ){
+        if(distancia <=100 && distancia >=18 ){
 		analogWrite (pwm1,100);
 		digitalWrite(motor1Pin1, HIGH);
 		digitalWrite(motor1Pin2, LOW);
@@ -58,9 +58,18 @@ int main(void) {
 		digitalWrite(motor2Pin1, LOW);
 		}
 		
-		if(distancia < 15 ){
+		if(distancia <=13 && distancia >=0 ){
 		analogWrite (pwm2,100);
 		digitalWrite(motor1Pin1, lOW);
+		digitalWrite(motor1Pin2, LOW);
+		digitalWrite(motor2Pin1, HIGH);
+		digitalWrite(motor2Pin1, LOW);
+		}
+	
+	if(distancia <18 && distancia >13 ){
+		analogWrite (pwm1,100);
+		analogWrite (pwm2,100);
+		digitalWrite(motor1Pin1, HIGH);
 		digitalWrite(motor1Pin2, LOW);
 		digitalWrite(motor2Pin1, HIGH);
 		digitalWrite(motor2Pin1, LOW);
