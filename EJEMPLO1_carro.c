@@ -42,15 +42,9 @@ int getCM() {
         long travelTime = micros() - startTime;
  
         //Get distance in cm
-        int distance = travelTime / 58;
- 
-        return distance;
-}
- 
-int main(void) {
-        setup();
-       while(TRUE){
-        if(distancia <=100 && distancia >=18 ){
+        int distancia = travelTime / 58;
+	
+	 if(distancia <=100 && distancia >=18 ){
 		analogWrite (pwm1,100);
 		digitalWrite(motor1Pin1, HIGH);
 		digitalWrite(motor1Pin2, LOW);
@@ -74,9 +68,19 @@ int main(void) {
 		digitalWrite(motor2Pin1, HIGH);
 		digitalWrite(motor2Pin1, LOW);
 		}
-       } 
-        return 0;
+	
+        return distancia;
 }
+ 
+int main(void) {
+        setup();
+       while(1){
+	       printf("distancia: %dcm\n" , getCM());
+       
+         } 
+        return 0;
+            
+             }
 	
 	
 	
