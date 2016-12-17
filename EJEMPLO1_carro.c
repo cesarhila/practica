@@ -1,25 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <wiringPi.h>
- 
-#define TRUE 1
- 
+#include <wiringPi.h> 
 #define TRIG 5
 #define ECHO 6
-#define motor1Pin1 7
-#define motor1Pin2 8
-#define motor2Pin1 9
-#define motor2Pin2 10
-#define pwm1       2
-#define pwm2       3
+#define M11 0
+#define M12 2
+#define PWM 3
+#define PWM1 12
+#define M21 14
+#define M22 13
+       
+
 void setup() {
         wiringPiSetup();
         pinMode(TRIG, OUTPUT);
         pinMode(ECHO, INPUT);
-		pinMode(motor1Pin1, OUTPUT);
-		pinMode(motor1Pin2, OUTPUT);
-		pinMode(motor2Pin1, OUTPUT);
-		pinMode(motor2Pin2, OUTPUT);
+		pinMode(M11, OUTPUT);
+		pinMode(PWM, OUTPUT)
+		pinMode(M12, OUTPUT);
+		pinMode(M21, OUTPUT);
+		pinMode(M22, OUTPUT);
+		pinMode(PWM1,OUTPUT);
  
  
         //TRIG pin must start LOW
@@ -42,46 +43,45 @@ int getCM() {
         long travelTime = micros() - startTime;
  
         //Get distance in cm
-        int distancia = travelTime / 58;
-	
-	 if(distancia <=100 && distancia >=18 ){
-		analogWrite (pwm1,100);
-		digitalWrite(motor1Pin1, HIGH);
-		digitalWrite(motor1Pin2, LOW);
-		digitalWrite(motor2Pin1, lOW);
-		digitalWrite(motor2Pin1, LOW);
+        int distance = travelTime / 58;
+        delay(100); 
+		
+		if(distance <= 300 && distance >= 35 ){
+		analogWrite (PWM,100);
+		digitalWrite(M11, HIGH);
+		digitalWrite(M12, LOW);
+		delay(50);
+		digitalWrite(M11, lOW);
+		digitalWrite(M12, LOW);
 		}
 		
-		if(distancia <=13 && distancia >=0 ){
-		analogWrite (pwm2,100);
-		digitalWrite(motor1Pin1, lOW);
-		digitalWrite(motor1Pin2, LOW);
-		digitalWrite(motor2Pin1, HIGH);
-		digitalWrite(motor2Pin1, LOW);
+		if(distance <= 30 && distance >= 1 ){
+		analogWrite (PWM1,100);
+		digitalWrite(M21, HIGH);
+		digitalWrite(M22, LOW);
+		delay(50);
+		digitalWrite(M21, lOW);
+		digitalWrite(M22, LOW);
 		}
-	
-	if(distancia <18 && distancia >13 ){
-		analogWrite (pwm1,100);
-		analogWrite (pwm2,100);
-		digitalWrite(motor1Pin1, HIGH);
-		digitalWrite(motor1Pin2, LOW);
-		digitalWrite(motor2Pin1, HIGH);
-		digitalWrite(motor2Pin1, LOW);
+        
+		if(distance < 30  && distance >30){
+		analogWrite (PWM, 100);
+		analogWrite (PWM1,100);
+		digitalWrite(M11, HIGH);
+		digitalWrite(M21, HIGH);
+		delay(50);
+		digitalWrite(M21, LOW);
+		digitalWrite(M22, LOW);
 		}
-	
-        return distancia;
+      return distance;
 }
- 
-int main(void) {
-        setup();
-       while(1){
-	       printf("distancia: %dcm\n" , getCM());
-       
-         } 
-        return 0;
-            
-             }
-	
+      int main(void){
+		  setup();
+		  while(1){
+			  printf("Distancia: %dcm/n", getCM());
+		  }
+		  return 0;
+	  }
 	
 	
 	
